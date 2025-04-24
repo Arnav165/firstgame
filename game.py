@@ -9,7 +9,7 @@ app = FastAPI()
 # Configure CORS properly
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with your frontend URL
+    allow_origins=["https://firstgame-zeta.vercel.app/"],  # In production, replace with your frontend URL
     allow_credentials=True,
     allow_methods=["*"],  # This is important! Allows OPTIONS requests
     allow_headers=["*"],
