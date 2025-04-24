@@ -3,15 +3,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import random
 import uvicorn
+import os
 
 app = FastAPI()
 
-# Configure CORS properly
+# Corrected CORS config
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://firstgame-zeta.vercel.app/"],  # In production, replace with your frontend URL
+    allow_origins=["https://firstgame-zeta.vercel.app"],  # No trailing slash
     allow_credentials=True,
-    allow_methods=["*"],  # This is important! Allows OPTIONS requests
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
@@ -43,13 +44,14 @@ def play_game(player: PlayerChoice):
         "result": result
     }
 
-# Add an OPTIONS endpoint to handle preflight requests explicitly
+# Optional OPTIONS handler (CORS middleware already handles this)
 @app.options("/play")
 async def options_play():
     return {}
 
 def main():
-    uvicorn.run("game:app", host="127.0.0.1", port=8000, reload=True)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("game:app", host="0.0.0.0", port=port)
 
 if __name__ == "__main__":
     main()
