@@ -15,7 +15,7 @@ function App() {
     setResult(null);
     
     try {
-      const response = await fetch('http://127.0.0.1:8000/play', {
+      const response = await fetch('https://firstgame-fn6e.onrender.com/play', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
